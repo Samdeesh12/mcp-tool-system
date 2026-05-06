@@ -1,5 +1,3 @@
-# server/server.py
-
 from mcp.server.fastmcp import FastMCP
 import requests
 import sqlite3
@@ -10,7 +8,7 @@ load_dotenv()
 
 mcp = FastMCP("Intelligent Tool System")
 
-# ─── TOOL 1: WEATHER ──────────────────────────────────────────────────────────
+
 
 @mcp.tool()
 def get_weather(city: str) -> dict:
