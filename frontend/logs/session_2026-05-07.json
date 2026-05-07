@@ -1,0 +1,26 @@
+[
+  {
+    "timestamp": "2026-05-07 16:07:31",
+    "user": "hello",
+    "assistant": "Hello! How can I help you today? Whether you\u2019re looking for the latest news, checking the weather, tracking expenses, or anything else, just let me know. \ud83d\ude0a",
+    "tool_used": null
+  },
+  {
+    "timestamp": "2026-05-07 16:07:52",
+    "user": "hi",
+    "assistant": "Hey there! \ud83d\udc4b What can I do for you today? Feel free to ask about the weather, news, expense tracking, currency conversion, or anything else you have in mind.",
+    "tool_used": null
+  },
+  {
+    "timestamp": "2026-05-07 16:22:20",
+    "user": "Add expense: 350 for food today",
+    "assistant": "Your food expense of **\u20b9350** for today (2025\u201105\u201106) has been successfully added to the expense tracker. Let me know if you\u2019d like to view your recent expenses, add more entries, or anything else!",
+    "tool_used": "add_expense"
+  },
+  {
+    "timestamp": "2026-05-07 16:22:33",
+    "user": "Show my expenses this month",
+    "assistant": "Here are the expenses you\u2019ve recorded for **May\u202f2025**:\n\n| Date       | Amount (\u20b9) | Category   | Note |\n|------------|------------|------------|------|\n| 2025\u201105\u201101 | 250.00 | Food | Lunch |\n| 2025\u201105\u201102 | 1,200.00 | Transport | Uber |\n| 2025\u201105\u201103 | 500.00 | Food | Dinner |\n| 2025\u201105\u201106 | 300.00 | Food | Pizza |\n| 2025\u201105\u201106 | 350.00 | Food | \u2014 |\n\n**Total spent so far:** **\u20b92,600.00**\n\nLet me know if you\u2019d like a summary by category, to add more entries, or anything else!",
+    "tool_used": "list_expenses"
+  }
+]
