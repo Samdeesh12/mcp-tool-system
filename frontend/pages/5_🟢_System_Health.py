@@ -1,4 +1,4 @@
-# frontend/pages/5_🟢_System_Health.py
+
 
 import streamlit as st
 import sys, os, time, requests
@@ -14,7 +14,7 @@ st.markdown("<style>html,body,[class*='css']{font-family:'DM Sans',sans-serif !i
 st.markdown('<h1 style="font-family:Space Mono,monospace;font-size:1.6rem;color:#e2e8f0;margin-bottom:4px;">🟢 System Health Monitor</h1>', unsafe_allow_html=True)
 st.markdown('<p style="color:#64748b;font-size:0.9rem;margin-bottom:8px;">Live status check for all MCP tools and external API dependencies</p>', unsafe_allow_html=True)
 
-# ── PING FUNCTIONS ────────────────────────────────────────────────────────────
+
 def check_weather():
     try:
         key = os.getenv("OPENWEATHER_API_KEY")
@@ -96,7 +96,7 @@ def check_sentiment_model():
     except:
         return False, "Not loaded", 0
 
-# ── RUN CHECKS ────────────────────────────────────────────────────────────────
+
 last_checked = st.empty()
 
 col_refresh, col_time = st.columns([1, 5])
@@ -140,7 +140,7 @@ if results:
         unsafe_allow_html=True
     )
 
-    # ── SUMMARY METRICS ───────────────────────────────────────────────────────
+
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Services Healthy", f"{healthy}/{total}",
               delta="All systems go" if healthy == total else f"{total-healthy} degraded",
@@ -154,7 +154,7 @@ if results:
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
     st.markdown('<div style="font-family:Space Mono,monospace;font-size:0.68rem;color:#64748b;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Service Status</div>', unsafe_allow_html=True)
 
-    # ── STATUS CARDS ──────────────────────────────────────────────────────────
+ 
     for name, r in results.items():
         ok     = r["ok"]
         color  = "#10b981" if ok else "#ef4444"
@@ -193,7 +193,7 @@ if results:
         </div>
         """, unsafe_allow_html=True)
 
-    # ── ARCHITECTURE NOTE ─────────────────────────────────────────────────────
+
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
     st.markdown("""
     <div style="background:#0e1623;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:16px 20px;">
