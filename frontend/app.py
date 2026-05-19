@@ -24,7 +24,8 @@ def clean_response(text: str) -> str:
 # ── CSS — split into small injections to prevent Streamlit rendering bug ──────
 st.markdown('<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">', unsafe_allow_html=True)
 st.markdown("<style>:root{--bg:#080c14;--bg2:#0e1623;--bg3:#151f2e;--border:rgba(255,255,255,0.07);--accent:#00d4ff;--text:#e2e8f0;--muted:#64748b;}</style>", unsafe_allow_html=True)
-st.markdown("<style>html,body,[class*='css']{font-family:'DM Sans',sans-serif !important;background:#080c14 !important;color:#e2e8f0 !important;}#MainMenu,footer,header{visibility:hidden;}</style>", unsafe_allow_html=True)
+st.markdown("<style>html,body,[class*='css']{font-family:'DM Sans',sans-serif !important;background:#080c14 !important;color:#e2e8f0 !important;}#MainMenu,footer{visibility:hidden;}</style>", unsafe_allow_html=True)
+st.markdown("<style>[data-testid='stSidebarNav']{display:block !important;visibility:visible !important;}[data-testid='stSidebarNav'] a{color:#e2e8f0 !important;font-family:'DM Sans',sans-serif !important;font-size:0.85rem !important;padding:6px 12px !important;border-radius:6px !important;}[data-testid='stSidebarNav'] a:hover{background:rgba(0,212,255,0.08) !important;color:#00d4ff !important;}[data-testid='stSidebarNav'] a[aria-current='page']{background:rgba(0,212,255,0.12) !important;color:#00d4ff !important;}</style>", unsafe_allow_html=True)
 st.markdown("<style>.block-container{padding:1.5rem 2rem 5rem 2rem !important;max-width:860px !important;margin:0 auto !important;}[data-testid='stAppViewContainer']{background:#080c14 !important;}</style>", unsafe_allow_html=True)
 st.markdown("<style>[data-testid='stSidebar']{background:#0e1623 !important;border-right:1px solid rgba(255,255,255,0.07) !important;}section[data-testid='stSidebar'] *{color:#e2e8f0 !important;}</style>", unsafe_allow_html=True)
 st.markdown("<style>[data-testid='stSidebar'] .stButton>button{background:#151f2e !important;border:1px solid rgba(255,255,255,0.07) !important;color:#94a3b8 !important;border-radius:8px !important;font-size:0.78rem !important;text-align:left !important;width:100% !important;padding:7px 12px !important;font-family:'DM Sans',sans-serif !important;transition:all 0.15s;}[data-testid='stSidebar'] .stButton>button:hover{border-color:#00d4ff !important;color:#00d4ff !important;background:rgba(0,212,255,0.05) !important;}</style>", unsafe_allow_html=True)
@@ -131,7 +132,7 @@ if "pending_query" in st.session_state:
     user_input = st.session_state.pending_query
     del st.session_state.pending_query
 
-# ── PROCESS ───────────────────────────────────────────────────────────────────
+
 if user_input:
     st.session_state.chat_display.append({"role": "user", "content": user_input})
 
@@ -146,11 +147,28 @@ if user_input:
 
     host_module.execute_tool = tracking_execute
 
-    with st.spinner("⚡ Routing to the right tool..."):
-        try:
-            response = chat(user_input, st.session_state.conversation_history)
-        except Exception as e:
-            response = f"Something went wrong: {str(e)}"
+    typing_placeholder = st.empty()
+    typing_placeholder.markdown(
+        '<div style="display:flex;align-items:center;gap:8px;padding:12px 16px;'
+        'background:#0e1623;border:1px solid #1e2d42;border-radius:12px;width:fit-content;">'
+        '<div style="display:flex;gap:4px;">'
+        '<span style="width:7px;height:7px;border-radius:50%;background:#00d4ff;'
+        'animation:bounce 1s infinite;display:inline-block;"></span>'
+        '<span style="width:7px;height:7px;border-radius:50%;background:#00d4ff;'
+        'animation:bounce 1s infinite 0.2s;display:inline-block;"></span>'
+        '<span style="width:7px;height:7px;border-radius:50%;background:#00d4ff;'
+        'animation:bounce 1s infinite 0.4s;display:inline-block;"></span>'
+        '</div>'
+        '<span style="font-family:Space Mono,monospace;font-size:0.75rem;color:#64748b;">'
+        '⚡ Routing to the right tool...</span></div>'
+        '<style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>',
+        unsafe_allow_html=True
+    )
+    try:
+        response = chat(user_input, st.session_state.conversation_history)
+    except Exception as e:
+        response = f"Something went wrong: {str(e)}"
+    typing_placeholder.empty()
 
     host_module.execute_tool = original_execute
     log_conversation(user_input, response, last_tool_used["name"])
