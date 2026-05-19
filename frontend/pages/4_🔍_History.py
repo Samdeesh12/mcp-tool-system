@@ -1,4 +1,4 @@
-# frontend/pages/4_🔍_History.py
+
 
 import streamlit as st
 import sys, os, json
@@ -21,7 +21,7 @@ if not logs:
     st.markdown('<div style="text-align:center;padding:60px;color:#334155;font-family:Space Mono,monospace;font-size:0.85rem;">No conversations logged yet.<br>Start chatting on the main page!</div>', unsafe_allow_html=True)
     st.stop()
 
-# ── FILTERS ───────────────────────────────────────────────────────────────────
+
 col1, col2, col3 = st.columns([2, 1, 1])
 
 with col1:
@@ -37,7 +37,7 @@ with col3:
 
 st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
-# ── APPLY FILTERS ─────────────────────────────────────────────────────────────
+
 filtered = logs
 
 if search:
@@ -52,7 +52,7 @@ if date_filter != "All dates":
 
 filtered = list(reversed(filtered))
 
-# ── STATS ROW ─────────────────────────────────────────────────────────────────
+
 c1, c2, c3 = st.columns(3)
 c1.metric("Total Conversations", len(logs))
 c2.metric("Matching Results", len(filtered))
@@ -60,7 +60,7 @@ c3.metric("Unique Dates", len(all_dates))
 
 st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
 
-# ── TOOL COLOURS ──────────────────────────────────────────────────────────────
+
 TOOL_COLORS = {
     "get_weather": "#00d4ff", "convert_currency": "#10b981",
     "get_news": "#f59e0b", "analyze_sentiment": "#7c3aed",
@@ -75,7 +75,7 @@ TOOL_ICONS = {
     "summarize_expenses": "📊", "none": "💬"
 }
 
-# ── RESULTS ───────────────────────────────────────────────────────────────────
+
 if not filtered:
     st.markdown('<div style="text-align:center;padding:48px;color:#334155;font-family:Space Mono,monospace;">No results found for your filters.</div>', unsafe_allow_html=True)
 else:
@@ -87,7 +87,7 @@ else:
         user_q = entry["user"]
         ai_ans = entry["assistant"][:300] + ("..." if len(entry["assistant"]) > 300 else "")
 
-        # Highlight search keyword
+      
         def highlight(text, kw):
             if not kw:
                 return text
